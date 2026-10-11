@@ -1,4 +1,5 @@
 HTTP_VER = "HTTP/1.1"
+HTTP_SERVER_NAME = "insomma"
 HTTP_LINE_BR = "\r\n"
 
 # decorator take tuple as status code and body and creates respose accordingly
@@ -18,7 +19,7 @@ STATUS_CODES = {
 def http_response(status_code, body=None) -> bytes:
     response = [
         f"{HTTP_VER} {STATUS_CODES[status_code]}",
-        "Server: INSOMMA",
+        f"Server: {HTTP_SERVER_NAME}",
         "Connection: close"
     ]
     if body is not None:

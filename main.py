@@ -1,6 +1,13 @@
 # use -v for cURL to see malformed requests
 import socket
-import http
+
+from decorators import route
+from request import Request
+
+
+@route
+def test():
+    return 206, "ciao"
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # booo
@@ -10,20 +17,10 @@ serversocket.listen(5)
 
 while True:
     connection, address = serversocket.accept()
-    buf = connection.recv(1024).decode("ascii")
-    lines = buf.split("\r\n")
-    start_line = lines.pop(0)
-    headers = []
-    while lines:
-        line = lines.pop(0)
-        if line == "":
-            break
-        headers.append(line)
-    body = "\r\n".join(lines)
-    print(start_line)
-    print(headers)
-    print(body)
-    connection.send(http.http_response(200, "ciaoo"))
-    connection.close()
+    buf = connection.recv(1024)
+    request = Request(buf)
+    # fix decorator parameters
+    test(request, connection)
+
 
 serversocket.close()
