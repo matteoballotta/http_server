@@ -1,5 +1,6 @@
 # use -v for cURL to see malformed requests
 import socket
+import http
 
 serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # booo
@@ -22,7 +23,7 @@ while True:
     print(start_line)
     print(headers)
     print(body)
-    connection.send(b"HTTP/1.1 403 Forbidden\r\nServer: Apache\r\n\r\ntest")
+    connection.send(http.http_response(200, "ciaoo"))
     connection.close()
 
 serversocket.close()
