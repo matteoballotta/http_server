@@ -7,6 +7,8 @@ class Method(Enum):
     PUT = "PUT"
     DELETE = "DELETE"
 
+
+# possibly add get parameters
 class Request:
     def __init__(self, bytes: bytes):
         # set encoding in upper class
@@ -27,12 +29,10 @@ class Request:
     def parse_start_line(self, start_line: str):
         fields = start_line.split(" ")
         if len(fields) != 3:
-            # do sum
-            pass
+            raise NotImplementedError("Unsupported format")
         str_method, self.uri, self.http_version = fields
         try:
             method = Method[str_method]
             self.method = method
-        except ValueError:
-            # do sum
-            pass
+        except KeyError:
+            raise NotImplementedError("Unsupported format")
