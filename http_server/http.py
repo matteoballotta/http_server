@@ -1,6 +1,7 @@
 HTTP_VER = "HTTP/1.1"
 HTTP_SERVER_NAME = "insomma"
 HTTP_LINE_BR = "\r\n"
+HTTP_ENCODING = "ascii"
 
 STATUS_CODES = {
     # 2xx
@@ -18,5 +19,5 @@ STATUS_CODES = {
     404: "404 Not Found",
     # 5xx
     500: "500 Internal Server Error",
-    501: "501 Not Implemented"
+    501: "501 Not Implemented",
 }
